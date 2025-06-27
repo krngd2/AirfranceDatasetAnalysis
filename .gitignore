@@ -1,1 +1,6 @@
 /.venv
+.DS_Store
+__pycache__/
+*.pyc 
+airfrans_dataset
+skeleton

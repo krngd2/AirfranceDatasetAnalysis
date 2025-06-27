@@ -1,6 +1,7 @@
 import airfrans as af
 import pyvista as pv
 import numpy as np
+import os
 
 PATH_TO_DATASET = "airfrans_dataset"
 
@@ -94,7 +95,11 @@ def get_image_from_sim(simulation, var="nut",output_image="airfRANS_cropped.png"
     else:
         # Image is taller than mesh, fit by width (adjust using aspect ratio)
         plotter.camera.SetParallelScale((mesh_width / 2) / image_aspect_ratio)
+    # if output_image folder does not exist, create it
 
+    output_dir = os.path.dirname(output_image)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     # Save and show the image
     plotter.show(screenshot=output_image, window_size=resolution)
 
