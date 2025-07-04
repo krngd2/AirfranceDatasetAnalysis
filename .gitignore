@@ -4,3 +4,5 @@ __pycache__/
 *.pyc 
 airfrans_dataset
 skeleton
+AirfRANS*
+.conda
