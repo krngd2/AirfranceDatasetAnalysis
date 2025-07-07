@@ -6,3 +6,6 @@ airfrans_dataset
 skeleton
 AirfRANS*
 .conda
+comparison_images
+raw_data_images
+raw_data_images_clipped
