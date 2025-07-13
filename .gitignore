@@ -9,3 +9,11 @@ AirfRANS*
 comparison_images
 raw_data_images
 raw_data_images_clipped
+LPIPS_custom/weights/v0.0/alex.pth
+LPIPS_custom/weights/v0.0/squeeze.pth
+LPIPS_custom/weights/v0.0/vgg.pth
+LPIPS_custom/weights/v0.1/alex.pth
+LPIPS_custom/weights/v0.1/squeeze.pth
+LPIPS_custom/weights/v0.1/vgg.pth
+vgg16_finetuned_remeshed.h5
+vgg16_finetuned_remeshed.pth
