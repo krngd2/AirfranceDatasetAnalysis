@@ -72,8 +72,8 @@ def convert_keras_to_pytorch(keras_model_path, pytorch_model_path):
 
 if __name__ == '__main__':
     # Path to your Keras .h5 model
-    keras_model_path = './vgg16_finetuned_remeshed.h5'
+    keras_model_path = './vgg16_finetuned_comparitive.h5'
     # Path to save the converted PyTorch weights
-    pytorch_weights_path = './vgg16_finetuned_remeshed.pth'
+    pytorch_weights_path = './vgg16_finetuned_comparitive.pth'
     
     convert_keras_to_pytorch(keras_model_path, pytorch_weights_path)

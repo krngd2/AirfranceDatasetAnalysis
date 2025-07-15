@@ -34,7 +34,7 @@ def get_image_from_sim(simulation, var="nut",output_image="airfRANS_cropped.png"
     # freestream = sim.freestream()  # Freestream boundary -> bib does not provied acess to this
     airfoil = sim.airfoil  # Airfoil surface
 
-    full_bounds = [-2, 4, -1.5, 1.5, 0.5, 0.5]
+    full_bounds = [-2, 4, -1.5, 1.5, 0.5, 0.5] 
 
     # Apply cropping (keep only the area near the airfoil)
     cropped_mesh = internal_mesh.clip_box(full_bounds, invert=False)
@@ -101,11 +101,10 @@ def get_image_from_sim(simulation, var="nut",output_image="airfRANS_cropped.png"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     # Save and show the image
-    plotter.show(screenshot=output_image, window_size=resolution)
-
-    return cropped_mesh
-
-
+    # plotter.show(screenshot=output_image, window_size=resolution)
+    # only save the image
+    plotter.screenshot(output_image, window_size=resolution)
+    # return cropped_mesh
 
 def create_dataset():
     # Load test dataset list

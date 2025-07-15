@@ -62,7 +62,7 @@ class CustomFeatureMetric(lpips.LPIPS):
 # --- Example Usage ---
 if __name__ == '__main__':
     # You may need to adjust this path based on your file structure
-    my_vgg_model_path = '../vgg16_finetuned_remeshed.pth'
+    my_vgg_model_path = './vgg16_finetuned_remeshed.pth'
 
     try:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

@@ -10,7 +10,7 @@ from tensorflow.keras.optimizers.legacy import Adam
 from tensorflow.keras.utils import to_categorical
 from sklearn.preprocessing import LabelEncoder
 from tqdm import tqdm
-
+# import pyiqa
 # data_clipped_path = './AirfRANS_clipped'
 data_remeshed_path = './AirfRANS_remeshed'
 
@@ -98,6 +98,7 @@ def load_data(data_frame: pd.DataFrame):
     
     return np.array(images), np.array(labels)
 
+
 # Load images and labels
 images, labels = load_data(data_remeshed)
 if images.size == 0:
@@ -130,7 +131,7 @@ predictions = Dense(num_classes, activation='softmax')(x)
 
 # Create the final model
 model = Model(inputs=base_model.input, outputs=predictions)
-
+# GMSD_loss = pyiqa.create_metric('gmsd', as_loss=True, device='cpu')
 # Compile the model
 model.compile(optimizer=Adam(learning_rate=0.0001), loss='categorical_crossentropy', metrics=['accuracy'])
 
