@@ -3,3 +3,6 @@ matplotlib>=3.6.0
 scikit-image>=0.20.0
 opencv-python>=4.7.0
 scipy>=1.10.0
+sewer
+pyvista
+pyiqa

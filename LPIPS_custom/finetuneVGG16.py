@@ -25,7 +25,7 @@ def load_images_from_folder(folder):
             'ux_label': None,
             'uy_label': None,
             'base_label': None,
-            'C_D': 0.0, #C_D,C_L,angle_of_attack,inlet_velocity
+            'C_D': 0.0, 
             'C_L': 0.0, 
             'angle_of_attack': 0.0,
             'inlet_velocity': 0.0
@@ -75,7 +75,6 @@ else:
     raise Exception("No data found in the specified directory. Please check the path and ensure it contains valid images and CSV files.")
 
 # raise Exception("This code is for training a custom VGG16 model for LPIPS metric. Please run the training script first.")
-
 def load_data(data_frame: pd.DataFrame):
     """
     Loads images and their corresponding labels.

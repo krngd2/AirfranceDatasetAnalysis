@@ -1,6 +1,7 @@
 import tensorflow as tf
 import torch
 import numpy as np
+import argparse
 
 def convert_keras_to_pytorch(keras_model_path, pytorch_model_path):
     """
@@ -74,6 +75,12 @@ if __name__ == '__main__':
     # Path to your Keras .h5 model
     keras_model_path = './vgg16_finetuned_comparitive.h5'
     # Path to save the converted PyTorch weights
-    pytorch_weights_path = './vgg16_finetuned_comparitive.pth'
+    parser = argparse.ArgumentParser(description='Convert Keras VGG weights to PyTorch LPIPS format.')
+    parser.add_argument('keras_model_path', help='Path to the input Keras .h5 model file.')
+    parser.add_argument('pytorch_weights_path', help='Path for the output PyTorch .pth weights file.')
+    args = parser.parse_args()
+
+    keras_model_path = args.keras_model_path if args.keras_model_path else keras_model_path
+    pytorch_weights_path = args.pytorch_weights_path if args.pytorch_weights_path else './vgg16_finetuned_comparitive.pth'
     
     convert_keras_to_pytorch(keras_model_path, pytorch_weights_path)

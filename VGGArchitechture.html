@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VGG16 Architecture</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            background: #ffffff;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 30px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 30px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .architecture-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            /* gap: 15px; */
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .block .layers-container {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .layers-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .block-label-left {
+            font-size: 11px;
+            font-weight: bold;
+            color: #000;
+            text-align: right;
+            min-width: 80px;
+            flex-shrink: 0;
+        }
+
+        .block-label-right {
+            font-size: 11px;
+            font-weight: normal;
+            color: #000;
+            text-align: left;
+            min-width: 120px;
+            flex-shrink: 0;
+        }
+
+        .layer {
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #000;
+            font-weight: normal;
+            font-size: 10px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .input-layer {
+            background: #f5f5f5;
+            border: 2px solid #333;
+            width: 80px;
+            height: 80px;
+        }
+
+        .conv-layer {
+            background: #e0e0e0;
+            width: 60px;
+            height: 60px;
+        }
+
+        .pool-layer {
+            background: #d0d0d0;
+            width: 40px;
+            height: 40px;
+        }
+
+        .fc-layer {
+            background: #c0c0c0;
+            width: 100px;
+            height: 50px;
+        }
+
+        .output-layer {
+            background: #b0b0b0;
+            width: 80px;
+            height: 40px;
+        }
+
+        .layer-info {
+            font-size: 9px;
+            line-height: 1.2;
+            white-space: nowrap;
+            color: #000;
+        }
+
+        .arrow {
+            font-size: 20px;
+            color: #333;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            transform: rotate(90deg);
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #333;
+        }
+
+        .legend-text {
+            font-size: 11px;
+            color: #000;
+            font-weight: normal;
+        }
+
+        .specs {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">VGG16 Convolutional Neural Network Architecture</div>
+        
+        <div class="highlight">
+            <div class="specs">
+                <strong>VGG16 Specifications:</strong><br>
+                Total Parameters: ~138 million | Convolutional Layers: 13 | Fully Connected Layers: 3 | Max Pooling Layers: 5<br>
+                Input Size: 224×224×3 | Output Classes: 1000 | Filter Size: 3×3 (all conv layers) | Pooling: 2×2 with stride 2
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f5f5f5; border: 2px solid #333;"></div>
+                <span class="legend-text">Input Layer (224×224×3)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e0e0e0;"></div>
+                <span class="legend-text">Convolutional Layer (3×3 filters)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #d0d0d0;"></div>
+                <span class="legend-text">Max Pooling (2×2)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #c0c0c0;"></div>
+                <span class="legend-text">Fully Connected (4096 units)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #b0b0b0;"></div>
+                <span class="legend-text">Output Layer (1000 classes)</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="architecture-section">
+                <div class="architecture">
+                    <!-- Input Layer -->
+                    <div class="block">
+                        <div class="layer input-layer">
+                            <div class="layer-info">INPUT<br>224×224×3</div>
+                        </div>
+                        <div class="block-label">Input Image</div>
+                    </div>
+
+                    <div class="arrow">→</div>
+
+                    <!-- Block 1 -->
+                    <div class="block">
+                        <div class="layers-wrapper">
+                            <div class="block-label-left">Block 1</div>
+                            <div class="layers-container">
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>64@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>64@3×3</div>
+                                </div>
+                                <div class="layer pool-layer">
+                                    <div class="layer-info">POOL<br>2×2</div>
+                                </div>
+                            </div>
+                            <div class="block-label-right">2 Conv + Pool<br>224→112</div>
+                        </div>
+                    </div>
+
+                    <div class="arrow">→</div>
+
+                    <!-- Block 2 -->
+                    <div class="block">
+                        <div class="layers-wrapper">
+                            <div class="block-label-left">Block 2</div>
+                            <div class="layers-container">
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>128@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>128@3×3</div>
+                                </div>
+                                <div class="layer pool-layer">
+                                    <div class="layer-info">POOL<br>2×2</div>
+                                </div>
+                            </div>
+                            <div class="block-label-right">2 Conv + Pool<br>112→56</div>
+                        </div>
+                    </div>
+
+                    <div class="arrow">→</div>
+
+                    <!-- Block 3 -->
+                    <div class="block">
+                        <div class="layers-wrapper">
+                            <div class="block-label-left">Block 3</div>
+                            <div class="layers-container">
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>256@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>256@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>256@3×3</div>
+                                </div>
+                                <div class="layer pool-layer">
+                                    <div class="layer-info">POOL<br>2×2</div>
+                                </div>
+                            </div>
+                            <div class="block-label-right">3 Conv + Pool<br>56→28</div>
+                        </div>
+                    </div>
+
+                    <div class="arrow">→</div>
+
+                    <!-- Block 4 -->
+                    <div class="block">
+                        <div class="layers-wrapper">
+                            <div class="block-label-left">Block 4</div>
+                            <div class="layers-container">
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>512@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>512@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>512@3×3</div>
+                                </div>
+                                <div class="layer pool-layer">
+                                    <div class="layer-info">POOL<br>2×2</div>
+                                </div>
+                            </div>
+                            <div class="block-label-right">3 Conv + Pool<br>28→14</div>
+                        </div>
+                    </div>
+
+                    <div class="arrow">→</div>
+
+                    <!-- Block 5 -->
+                    <div class="block">
+                        <div class="layers-wrapper">
+                            <div class="block-label-left">Block 5</div>
+                            <div class="layers-container">
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>512@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>512@3×3</div>
+                                </div>
+                                <div class="layer conv-layer">
+                                    <div class="layer-info">CONV<br>512@3×3</div>
+                                </div>
+                                <div class="layer pool-layer">
+                                    <div class="layer-info">POOL<br>2×2</div>
+                                </div>
+                            </div>
+                            <div class="block-label-right">3 Conv + Pool<br>14→7</div>
+                        </div>
+                    </div>
+
+                    <div class="arrow">→</div>
+
+                    <!-- Fully Connected Layers -->
+                    <div class="block">
+                        <div class="layers-wrapper">
+                            <div class="block-label-left">Classifier</div>
+                            <div class="layers-container">
+                                <div class="layer fc-layer">
+                                    <div class="layer-info">FC<br>4096</div>
+                                </div>
+                                <div class="layer fc-layer">
+                                    <div class="layer-info">FC<br>4096</div>
+                                </div>
+                                <div class="layer output-layer">
+                                    <div class="layer-info">FC<br>1000</div>
+                                </div>
+                            </div>
+                            <div class="block-label-right">7×7×512→1000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
