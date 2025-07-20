@@ -21,7 +21,6 @@ def convert_keras_to_pytorch(keras_model_path, pytorch_model_path):
     # This needs to match the structure of the vgg16 model used by lpips
     # The lpips vgg16 features are named like 'slice1.0', 'slice1.2', etc.
     # Let's create a dummy lpips vgg to inspect layer names
-    import lpips
     from lpips.pretrained_networks import vgg16 as lpips_vgg
     pytorch_vgg = lpips_vgg(pretrained=False)
     
