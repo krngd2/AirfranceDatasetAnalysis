@@ -19,7 +19,8 @@ class CustomFeatureMetric(lpips.LPIPS):
 
         # Step 2: Load and set your custom VGG backbone.
         custom_net = vgg16(pretrained=False, requires_grad=False)
-        state_dict = torch.load(custom_vgg_path, map_location=torch.device('cpu'))
+        device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+        state_dict = torch.load(custom_vgg_path, map_location=device)
         custom_net.load_state_dict(state_dict, strict=False)
         self.net = custom_net
 
